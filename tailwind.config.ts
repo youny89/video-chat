@@ -24,6 +24,13 @@ const config = {
           2:"#0E1217",
           3:"#272727",
         },
+        blue:{
+          1:"#865DFF"
+        },
+        pink:{
+          1:"#E384FF",
+          2:"#FFA3FD"
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
