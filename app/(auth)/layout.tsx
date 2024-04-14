@@ -1,8 +1,11 @@
+interface AuthLayoutProps {
+  children:React.ReactNode;
+}
 
 
-const AuthLayout = () => {
+const AuthLayout:React.FC<AuthLayoutProps> = ({children}) => {
   return (
-    <div>AuthLayout</div>
+    <div className="flex items-center justify-center w-full h-screen">{children}</div>
   )
 }
 

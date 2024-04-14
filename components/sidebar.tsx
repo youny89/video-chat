@@ -3,6 +3,7 @@
 
 import { sidebarLinks } from "@/consts"
 import { cn } from "@/lib/utils";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation"
@@ -28,7 +29,9 @@ const Sidebar = () => {
             )
           })}
         </div>
-        <div className="h-10 w-10 rounded-full bg-slate-400"/>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     )
 }

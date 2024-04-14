@@ -1,8 +1,13 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
+.glassmorphism {
+  background:rgba(255,255,255, 0.28);
+  backdrop-filter: blur(4px);
+}
+
+@layer base {
     :root {
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;

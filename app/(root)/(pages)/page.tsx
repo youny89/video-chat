@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
+import Banner from "@/components/banner";
+import MeetingTypeList from "@/components/meeting-type-list";
 
 export default function Home() {
   return (
-    <>
-      <Button className="bg-blue-1">클릭 미!!</Button>
-      <Button className="bg-pink-1">클릭 미!!</Button>
-      <Button className="bg-pink-2">클릭 미!!</Button>
-    </>
+    <div className="flex flex-col size-full gap-10 text-white ">
+      <Banner />
+
+      <MeetingTypeList />
+    </div>
   );
 }
