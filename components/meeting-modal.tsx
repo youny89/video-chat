@@ -28,7 +28,7 @@ const MeetingModal:React.FC<MeetingModalProps> = ({
             <DialogContent className="flex w-full max-w-[520px] gap-6 text-black px-6 py-8">
                 <div className="flex flex-col gap-6 w-full">
                     {image && (
-                        <Image className="m-auto" src={image} width={72} height={72} alt="icon"/>
+                        <Image className="m-auto" src={image} width={72} height={72} alt="icon" />
                     )}
                     <h1 className="leading-[42px] text-3xl text-center">{title}</h1>
                     {children}

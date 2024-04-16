@@ -4,21 +4,59 @@ import { useState } from "react"
 import MeetingTypeCard from "./meeting-type-card";
 import MeetingModal from "./meeting-modal";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { toast } from "sonner"
+
 
 type MeetingType = 'schedule'|'join'|'instant'|undefined
 
 const MeetingTypeList = () => {
     const router = useRouter();
+    const { user } = useUser();
+    const client = useStreamVideoClient();
     const [meetingType, setMeetingType] = useState<MeetingType>()
-    const [callDetails, setCallDetails] = useState<boolean>()
+    const [callDetails, setCallDetails] = useState<Call>()
     const [values, setValues] = useState({
         dateTime: new Date(),
         description:'',
         link:''
     })
 
-    const createNewMeeting = () => {
-        setCallDetails(true);
+    const createNewMeeting = async () => {
+        if(!user || !client) return;
+        try {
+            if(!values.dateTime) {
+                toast('미팅 날짜를 선택해주세요')
+                return;
+            }
+
+            // create random id for this call.
+            const id = crypto.randomUUID();
+            const call = client.call('default', id);
+
+            if(!call) throw new Error('Failed to create a call.')
+
+            const startsAt = values.dateTime.toISOString() || new Date(Date.now()).toISOString();
+            const description = values.description || 'Instant'
+            await call.getOrCreate({
+                data: {
+                    starts_at:startsAt,
+                    custom: {
+                        description
+                    }
+                }
+            })
+
+            setCallDetails(call);
+            if(!values.description) {
+                router.push(`/meeting/${call.id}`)
+            }
+
+            toast('미팅이 생성 되었습니다!');
+        } catch (error) {
+            console.log(error);
+        } 
     }
 
     return (
